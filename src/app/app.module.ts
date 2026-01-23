@@ -15,8 +15,7 @@ import { FhirModule } from './fhir/fhir.module'
     AppRoutingModule,
     FhirModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    RouterModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
