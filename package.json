@@ -1,5 +1,5 @@
 {
-  "name": "@cmuh-view/form2-replier",
+  "name": "fhir-prom-formio",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
