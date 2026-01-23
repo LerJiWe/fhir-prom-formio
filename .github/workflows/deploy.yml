@@ -28,5 +28,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist/fhir-prom-formio/browser # Angular 17+ 預設路徑通常在此
+          folder: dist/fhir-prom-formio # Angular 11+ 預設路徑通常在此
           branch: gh-pages # 部署到的分支
