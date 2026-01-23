@@ -59,11 +59,27 @@ __webpack_require__.r(__webpack_exports__);
 class LaunchComponent {
     constructor() { }
     ngOnInit() {
-        fhirclient__WEBPACK_IMPORTED_MODULE_1__["oauth2"].authorize({
-            clientId: 'my_web_app',
-            scope: 'launch openid fhirUser patient/*.read',
-            redirectUri: 'fhir-prom-formio/fhir'
-        });
+        // 檢查 URL 中是否存在 iss 參數（無論是在 # 之前還是之後）
+        const urlParams = new URLSearchParams(window.location.search);
+        const iss = urlParams.get("iss");
+        const launch = urlParams.get("launch");
+        if (iss && launch) {
+            // 如果在網址列抓到了 iss，手動傳給 authorize
+            fhirclient__WEBPACK_IMPORTED_MODULE_1__["oauth2"].authorize({
+                clientId: 'my_web_app',
+                scope: 'launch openid fhirUser patient/*.read',
+                redirectUri: 'fhir-prom-formio/fhir',
+                iss: iss,
+                launch: launch
+            });
+        }
+        else {
+            // 如果沒抓到，嘗試讓套件自己抓（原本的邏輯）
+            fhirclient__WEBPACK_IMPORTED_MODULE_1__["oauth2"].authorize({
+                clientId: 'my_web_app',
+                scope: 'launch openid fhirUser patient/*.read'
+            }).catch(err => console.error(err));
+        }
     }
 }
 LaunchComponent.ɵfac = function LaunchComponent_Factory(t) { return new (t || LaunchComponent)(); };
@@ -220,11 +236,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser/animations */ "R1ws");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app-routing.module */ "vY5A");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app.component */ "Sy1n");
-/* harmony import */ var _fhir_fhir_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./fhir/fhir.module */ "Y17w");
-
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app-routing.module */ "vY5A");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "Sy1n");
+/* harmony import */ var _fhir_fhir_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./fhir/fhir.module */ "Y17w");
 
 
 
@@ -235,35 +249,32 @@ __webpack_require__.r(__webpack_exports__);
 
 class AppModule {
 }
-AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]] });
+AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]] });
 AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjector"]({ factory: function AppModule_Factory(t) { return new (t || AppModule)(); }, providers: [], imports: [[
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
-            _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"],
-            _fhir_fhir_module__WEBPACK_IMPORTED_MODULE_7__["FhirModule"],
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
+            _fhir_fhir_module__WEBPACK_IMPORTED_MODULE_6__["FhirModule"],
             _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_1__["BrowserAnimationsModule"],
-            _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"]
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"]
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
-        _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"],
-        _fhir_fhir_module__WEBPACK_IMPORTED_MODULE_7__["FhirModule"],
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
+        _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
+        _fhir_fhir_module__WEBPACK_IMPORTED_MODULE_6__["FhirModule"],
         _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_1__["BrowserAnimationsModule"],
-        _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"]] }); })();
+        _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵsetClassMetadata"](AppModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"],
         args: [{
-                declarations: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]],
+                declarations: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
                 imports: [
                     _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
-                    _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"],
-                    _fhir_fhir_module__WEBPACK_IMPORTED_MODULE_7__["FhirModule"],
+                    _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
+                    _fhir_fhir_module__WEBPACK_IMPORTED_MODULE_6__["FhirModule"],
                     _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_1__["BrowserAnimationsModule"],
-                    _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
-                    _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"]
+                    _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"]
                 ],
                 providers: [],
-                bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]],
+                bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
             }]
     }], null, null); })();
 
