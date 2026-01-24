@@ -59,31 +59,28 @@ __webpack_require__.r(__webpack_exports__);
 class LaunchComponent {
     constructor() { }
     ngOnInit() {
-        // 檢查 URL 中是否存在 iss 參數（無論是在 # 之前還是之後）
-        // const urlParams = new URLSearchParams(window.location.search);
-        // const iss = urlParams.get("iss");
-        // const launch = urlParams.get("launch");
-        // if (iss && launch) {
-        //   // 如果在網址列抓到了 iss，手動傳給 authorize
-        //   FHIR.oauth2.authorize({
-        //     clientId: 'my_web_app',
-        //     scope: 'launch openid fhirUser patient/*.read',
-        //     redirectUri: 'fhir-prom-formio/fhir',
-        //     iss: iss,
-        //     launch: launch
-        //   });
-        // } else {
-        //   // 如果沒抓到，嘗試讓套件自己抓（原本的邏輯）
-        //   FHIR.oauth2.authorize({
-        //     clientId: 'my_web_app',
-        //     scope: 'launch openid fhirUser patient/*.read'
-        //   }).catch(err => console.error(err));
-        // }
-        fhirclient__WEBPACK_IMPORTED_MODULE_1__["oauth2"].authorize({
-            clientId: 'my_web_app',
-            scope: 'launch openid fhirUser patient/*.read',
-            redirectUri: 'fhir-prom-formio/fhir'
-        });
+        // 檢查 sessionStorage 中是否存在 iss 參數（無論是在 # 之前還是之後）
+        const iss = sessionStorage.getItem('iss');
+        const launch = sessionStorage.getItem('launch');
+        console.log('launch/iss', iss);
+        console.log('launch/launch', launch);
+        if (iss && launch) {
+            // 如果在網址列抓到了 iss，手動傳給 authorize
+            fhirclient__WEBPACK_IMPORTED_MODULE_1__["oauth2"].authorize({
+                clientId: 'my_web_app',
+                scope: 'launch/patient openid fhirUser patient/*.read',
+                redirectUri: 'fhir-prom-formio/#/fhir',
+                iss: iss,
+                launch: launch
+            });
+        }
+        else {
+            // 如果沒抓到，嘗試讓套件自己抓（原本的邏輯）
+            fhirclient__WEBPACK_IMPORTED_MODULE_1__["oauth2"].authorize({
+                clientId: 'my_web_app',
+                scope: 'launch/patient openid fhirUser patient/*.read'
+            }).catch(err => console.error(err));
+        }
     }
 }
 LaunchComponent.ɵfac = function LaunchComponent_Factory(t) { return new (t || LaunchComponent)(); };
@@ -122,46 +119,16 @@ __webpack_require__.r(__webpack_exports__);
 class AppComponent {
     constructor() {
         this.title = 'fhir-prom-formio';
-        this.tmplNo = 20100;
-        this.replyInfo = {
-            replyNo: 1,
-            tmplNo: 20100,
-            replyUser: 'A123456789',
-            replyDesc: {
-                fillInDate: '2021-11-01T12:00:00+08:00',
-                ptName: '郭彥志',
-                idNo: 'A123456789',
-                sex: 'female',
-                firstBlock: { Q1: '1', Q2: '3', Q3: '4', Q4: '4', Q5: '4', Q6: '4' },
-            },
-            replyTime: '2022-03-02T09:14:23.220',
-            tranUser: 30666,
-            tranTime: '2022-03-02T09:14:23.220',
-            tranStatus: 30,
-            tranUserName: '楊名棟',
-        };
-        this.newReplyInfo = {
-            tmplNo: -2126664499,
-            subjectType: 10,
-            subject: 'A123456789',
-        };
-        this.editReplyInfo = {
-            branchNo: 1,
-            replyNo: -90225782,
-            tmplNo: -1621400951,
-            subjectType: 10,
-            subject: 'B222378038',
-            tranUser: 34944,
-            owner: 34944,
-            tranTime: new Date('2022-08-26 07:47:50.237'),
-            tranStatus: 20,
-            systemUser: 33878,
-            systemTime: new Date('2022-08-26 07:47:50.630'),
-            subjectName: '卓曉霜',
-        };
     }
     ngOnInit() {
+        this.setURLSearchParams();
         if (Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["isDevMode"])()) {
+        }
+    }
+    setURLSearchParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        for (let k of urlParams.keys()) {
+            sessionStorage.setItem(k, urlParams.get(k));
         }
     }
     showMsg(event) {
@@ -306,15 +273,27 @@ class FhirComponent {
     ngOnInit() {
         fhirclient__WEBPACK_IMPORTED_MODULE_1__["oauth2"].ready()
             .then(client => {
+            // 檢查 sessionStorage 裡面有沒有 fhir-client 存下的資料
+            console.log('SessionStorage 內容:', JSON.parse(sessionStorage.getItem('fhir-client-state') || '{}'));
+            console.log('client', client);
             console.log('連線成功！', client.patient.id);
             // 現在你可以使用 client.request() 來抓取資料了
+            if (!client.patient || !client.patient.id) {
+                this.patient = "錯誤：未選定病人或 Scope 缺少 launch/patient";
+                return;
+            }
+            const patientId = client.patient.id;
+            console.log('病人 ID:', patientId);
             client.patient.read().then((pt) => {
                 // 找病人然後要顯示吧
+                console.log('pt', pt);
+                // 在拿到資料後執行：
                 this.patient = JSON.stringify(pt, null, 4);
+                // this.cdr.detectChanges(); // 強制 Angular 更新畫面
             }, (error) => {
                 this.patient = error.stack;
             });
-            client.request("/MedicationRequest?patient=" + client.patient.id, {
+            client.request("MedicationRequest?patient=" + client.patient.id, {
                 resolveReferences: ["medicationReference"],
                 graph: true
             })
@@ -393,8 +372,8 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     // { path: 'index', component: AppComponent },      // 處理回調 (或你的主畫面)
     // { path: '', redirectTo: 'index', pathMatch: 'full' }
-    { path: '', redirectTo: 'launch', pathMatch: 'full' },
-    { path: 'launch', component: _fhir_launch_launch_component__WEBPACK_IMPORTED_MODULE_3__["LaunchComponent"] },
+    // { path: '', redirectTo: 'launch', pathMatch: 'full' },
+    { path: '', component: _fhir_launch_launch_component__WEBPACK_IMPORTED_MODULE_3__["LaunchComponent"] },
     {
         path: 'fhir',
         component: _fhir_fhir_component__WEBPACK_IMPORTED_MODULE_0__["FhirComponent"],
