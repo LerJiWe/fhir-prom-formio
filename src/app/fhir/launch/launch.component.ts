@@ -12,9 +12,11 @@ export class LaunchComponent implements OnInit {
 
   ngOnInit(): void {
 
+    console.log('launch component 當前原始網址：', window.location.href);
+
     // 檢查 sessionStorage 中是否存在 iss 參數（無論是在 # 之前還是之後）
-    const iss = sessionStorage.getItem('iss');
-    const launch = sessionStorage.getItem('launch');
+    const iss = sessionStorage.getItem('iss_self');
+    const launch = sessionStorage.getItem('launch_self');
 
     console.log('launch/iss', iss);
     console.log('launch/launch', launch);
@@ -24,7 +26,7 @@ export class LaunchComponent implements OnInit {
       FHIR.oauth2.authorize({
         clientId: 'my_web_app',
         scope: 'launch/patient openid fhirUser patient/*.read',
-        redirectUri: 'fhir-prom-formio/#/fhir',
+        redirectUri: '#/fhir',
         iss: iss,
         launch: launch
       });
