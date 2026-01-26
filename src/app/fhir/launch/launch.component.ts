@@ -12,14 +12,9 @@ export class LaunchComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log('launch component 當前原始網址：', window.location.href);
-
     // 檢查 sessionStorage 中是否存在 iss 參數（無論是在 # 之前還是之後）
     const iss = sessionStorage.getItem('iss_self');
     const launch = sessionStorage.getItem('launch_self');
-
-    console.log('launch/iss', iss);
-    console.log('launch/launch', launch);
 
     if (iss && launch) {
       // 如果在網址列抓到了 iss，手動傳給 authorize

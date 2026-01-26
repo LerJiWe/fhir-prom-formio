@@ -19,25 +19,9 @@ export class FhirComponent implements OnInit {
   ngOnInit(): void {
     console.log('fhir component 當前原始網址：', window.location.href);
 
-    // // 1. 從你手動存的備份中拿到 state
-    // const myState = sessionStorage.getItem('state_self');
+    const ReadyOptions = { code: sessionStorage.getItem('code_self'), stateKey: sessionStorage.getItem('state_self') }
 
-    // if (myState) {
-    //   console.log('手動校準中，目標 State:', myState);
-
-    //   // 2. 強行把所有可能的索引 Key 都設為這個 state
-    //   // 這樣不管套件想找哪一個，都能找到正確的 JSON 記憶
-    //   sessionStorage.setItem('SMART_KEY', myState);
-    //   const fhirClientState = sessionStorage.getItem(myState);
-    //   sessionStorage.setItem('fhir-client-state', fhirClientState);
-
-    //   // 3. 檢查一下：那個以 state 值為 Key 的長 JSON 也要存在
-    //   // (你之前說已經有看到這組了，所以這步通常沒問題)
-    // }
-
-    sessionStorage.setItem('fhir-client-state', JSON.stringify(sessionStorage.getItem('state_self')))
-
-    FHIR.oauth2.ready()
+    FHIR.oauth2.ready(ReadyOptions)
       .then(client => {
         // 檢查 sessionStorage 裡面有沒有 fhir-client 存下的資料
         // console.log('SessionStorage 內容:', JSON.parse(sessionStorage.getItem('fhir-client-state') || '{}'));

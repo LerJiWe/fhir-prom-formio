@@ -19,19 +19,23 @@ export class AppComponent implements OnInit {
     const urlParams = new URLSearchParams(window.location.search);
     this.setURLSearchParams(urlParams);
 
-    // 1. 使用原生 JS 抓取 # 號之前的參數 (window.location.search)
-    const code = urlParams.get('code');
-    const state = urlParams.get('state');
-    if (code && state) {
-      console.log('偵測到外部回傳參數，準備帶參數跳轉至 FhirComponent');
+    // // 1. 使用原生 JS 抓取 # 號之前的參數 (window.location.search)
+    // const code = urlParams.get('code');
+    // const state = urlParams.get('state');
+    // if (code && state) {
+    //   console.log('偵測到外部回傳參數，準備帶參數跳轉至 FhirComponent');
 
-      // 2. 手動將這些參數塞進 Angular 的導向中
-      // 這會讓網址變成 #/fhir?code=xxx&state=yyy
-      this.router.navigate(['fhir'], {
-        queryParams: { code, state },
-        replaceUrl: true // 替換掉目前的歷史紀錄，避免使用者按上一頁回到錯誤狀態
-      });
-    }
+    //   // 2. 手動將這些參數塞進 Angular 的導向中
+    //   // 這會讓網址變成 #/fhir?code=xxx&state=yyy
+    //   const queryParams = {};
+    //   for (let k of urlParams.keys()) {
+    //     queryParams[k] = urlParams.get(k);
+    //   }
+    //   this.router.navigate(['fhir'], {
+    //     queryParams: queryParams,
+    //     replaceUrl: true, // 替換掉目前的歷史紀錄，避免使用者按上一頁回到錯誤狀態
+    //   });
+    // }
 
     if (isDevMode()) {
     }
