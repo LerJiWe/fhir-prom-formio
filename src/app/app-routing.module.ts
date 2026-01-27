@@ -1,8 +1,8 @@
-import { FhirComponent } from './fhir/fhir.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LaunchComponent } from './fhir/launch/launch.component';
+import { LaunchComponent } from './smart-auth/launch.component';
+import { QuestionnaireCenterComponent } from './questionnaire-center/questionnaire-center.component';
 
 const routes: Routes = [
   // { path: 'index', component: AppComponent },      // 處理回調 (或你的主畫面)
@@ -10,8 +10,8 @@ const routes: Routes = [
   // { path: '', redirectTo: 'launch', pathMatch: 'full' },
   { path: '', component: LaunchComponent }, // 處理啟動
   {
-    path: 'fhir',
-    component: FhirComponent,
+    path: 'questionnaire-center',
+    component: QuestionnaireCenterComponent,
   },
 ];
 

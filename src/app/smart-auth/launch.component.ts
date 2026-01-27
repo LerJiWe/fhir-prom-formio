@@ -20,8 +20,8 @@ export class LaunchComponent implements OnInit {
       // 如果在網址列抓到了 iss，手動傳給 authorize
       FHIR.oauth2.authorize({
         clientId: 'my_web_app',
-        scope: 'launch/patient openid fhirUser patient/*.read',
-        redirectUri: '#/fhir',
+        scope: 'launch/patient openid fhirUser patient/*.read patient/*.write',
+        redirectUri: '#/questionnaire-center',
         iss: iss,
         launch: launch
       });
@@ -29,7 +29,8 @@ export class LaunchComponent implements OnInit {
       // 如果沒抓到，嘗試讓套件自己抓（原本的邏輯）
       FHIR.oauth2.authorize({
         clientId: 'my_web_app',
-        scope: 'launch/patient openid fhirUser patient/*.read'
+        scope: 'launch/patient openid fhirUser patient/*.read',
+        redirectUri: '#/questionnaire-center',
       }).catch(err => console.error(err));
     }
 

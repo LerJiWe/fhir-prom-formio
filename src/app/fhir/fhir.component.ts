@@ -12,6 +12,8 @@ export class FhirComponent implements OnInit {
 
   public meds: any;
 
+  public questionnaire: any;
+
   constructor(
     // private cdr: ChangeDetectorRef
   ) { }
@@ -67,8 +69,59 @@ export class FhirComponent implements OnInit {
           (error) => {
             this.meds = error.stack;
           }
+
+        /**
+         * Questionnaire/questionnaire 的 ID
+         * Questionnaire?title=問卷名稱
+         * Questionnaire?publisher=發布的人
+         */
+        client.request("Questionnaire/2c98768c-26a0-4bf5-903e-4f6151ca31b9")
+          .then((questionnaire) => {
+            this.questionnaire = JSON.stringify(questionnaire);
+          })
+          .catch(console.error);
+
+        /**
+         * 把 QuestionnaireResponse 寫入 FHIR Server
+         */
+        const questionnaireId = "";
+        const myResponse = {
+          resourceType: "QuestionnaireResponse",
+          questionnaire: `Questionnaire/${questionnaireId}`,
+          statue: "completed",
+          subject: { reference: "Patient/" + client.patient.id }, // 關聯到目前並人
+          item: [ /* 這裡放你轉換後的 formio reply */]
+        };
+        client.request({
+          url: "QuestionnaireResponse",
+          method: "POST",
+          body: JSON.stringify(myResponse),
+          headers: { "Content-Type": "application/fhir+json" }
+        })
+          .then((res) => console.log('存檔成功：', res))
+          .catch((err) => console.error("存檔失敗：", err))
+
+        /**
+         * 撈出存入 FHIR Server 的 QuestionnaireResponse
+         */
+        client.request(`QuestionnaireResponse?subject=Patient/${client.patient.id}`)
+        .then((bundle) => {
+          console.log("該病人的歷史填答：", bundle.entry);
+        })
+
+        /**
+         * 修改現有的答案卷
+         */
+        const responseId = ""
+        client.request({
+          url: `QuestionnaireResponse/${responseId}`,
+          method: "PUT",
+          body: JSON.stringify(myResponse)
+        })
+
       })
       .catch(console.error);
+
 
 
   }
