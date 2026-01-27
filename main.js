@@ -40,10 +40,88 @@ const environment = {
 
 /***/ }),
 
-/***/ "Pef/":
+/***/ "JUOo":
 /*!*************************************************!*\
-  !*** ./src/app/fhir/launch/launch.component.ts ***!
+  !*** ./src/app/smart-auth/smart-auth.module.ts ***!
   \*************************************************/
+/*! exports provided: SmartAuthModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SmartAuthModule", function() { return SmartAuthModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "ofXK");
+/* harmony import */ var _launch_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./launch.component */ "SsXV");
+/* harmony import */ var _fhir_client_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fhir-client.service */ "hAIa");
+
+
+
+
+
+class SmartAuthModule {
+}
+SmartAuthModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: SmartAuthModule });
+SmartAuthModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SmartAuthModule_Factory(t) { return new (t || SmartAuthModule)(); }, providers: [_fhir_client_service__WEBPACK_IMPORTED_MODULE_3__["FhirClientService"]], imports: [[
+            _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]
+        ]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](SmartAuthModule, { declarations: [_launch_component__WEBPACK_IMPORTED_MODULE_2__["LaunchComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]] }); })();
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SmartAuthModule, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
+        args: [{
+                declarations: [_launch_component__WEBPACK_IMPORTED_MODULE_2__["LaunchComponent"]],
+                imports: [
+                    _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]
+                ],
+                providers: [_fhir_client_service__WEBPACK_IMPORTED_MODULE_3__["FhirClientService"]]
+            }]
+    }], null, null); })();
+
+
+/***/ }),
+
+/***/ "L/fE":
+/*!*********************************************************************!*\
+  !*** ./src/app/questionnaire-center/questionnaire-center.module.ts ***!
+  \*********************************************************************/
+/*! exports provided: QuestionnaireCenterModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuestionnaireCenterModule", function() { return QuestionnaireCenterModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "ofXK");
+/* harmony import */ var _questionnaire_center_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./questionnaire-center.component */ "vOHG");
+
+
+
+
+class QuestionnaireCenterModule {
+}
+QuestionnaireCenterModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: QuestionnaireCenterModule });
+QuestionnaireCenterModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function QuestionnaireCenterModule_Factory(t) { return new (t || QuestionnaireCenterModule)(); }, imports: [[
+            _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+        ]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](QuestionnaireCenterModule, { declarations: [_questionnaire_center_component__WEBPACK_IMPORTED_MODULE_2__["QuestionnaireCenterComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]], exports: [_questionnaire_center_component__WEBPACK_IMPORTED_MODULE_2__["QuestionnaireCenterComponent"]] }); })();
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](QuestionnaireCenterModule, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
+        args: [{
+                declarations: [_questionnaire_center_component__WEBPACK_IMPORTED_MODULE_2__["QuestionnaireCenterComponent"]],
+                imports: [
+                    _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                ],
+                exports: [_questionnaire_center_component__WEBPACK_IMPORTED_MODULE_2__["QuestionnaireCenterComponent"]]
+            }]
+    }], null, null); })();
+
+
+/***/ }),
+
+/***/ "SsXV":
+/*!************************************************!*\
+  !*** ./src/app/smart-auth/launch.component.ts ***!
+  \************************************************/
 /*! exports provided: LaunchComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -66,8 +144,8 @@ class LaunchComponent {
             // 如果在網址列抓到了 iss，手動傳給 authorize
             fhirclient__WEBPACK_IMPORTED_MODULE_1__["oauth2"].authorize({
                 clientId: 'my_web_app',
-                scope: 'launch/patient openid fhirUser patient/*.read',
-                redirectUri: '#/fhir',
+                scope: 'launch/patient openid fhirUser patient/*.read patient/*.write',
+                redirectUri: '#/questionnaire-center',
                 iss: iss,
                 launch: launch
             });
@@ -76,7 +154,8 @@ class LaunchComponent {
             // 如果沒抓到，嘗試讓套件自己抓（原本的邏輯）
             fhirclient__WEBPACK_IMPORTED_MODULE_1__["oauth2"].authorize({
                 clientId: 'my_web_app',
-                scope: 'launch/patient openid fhirUser patient/*.read'
+                scope: 'launch/patient openid fhirUser patient/*.read',
+                redirectUri: '#/questionnaire-center',
             }).catch(err => console.error(err));
         }
     }
@@ -109,8 +188,10 @@ LaunchComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCo
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "tyNb");
+
 
 
 
@@ -120,91 +201,60 @@ class AppComponent {
         this.title = 'fhir-prom-formio';
     }
     ngOnInit() {
-        console.log('app component 當前原始網址：', window.location.href);
-        const urlParams = new URLSearchParams(window.location.search);
-        this.setURLSearchParams(urlParams);
-        // // 1. 使用原生 JS 抓取 # 號之前的參數 (window.location.search)
-        // const code = urlParams.get('code');
-        // const state = urlParams.get('state');
-        // if (code && state) {
-        //   console.log('偵測到外部回傳參數，準備帶參數跳轉至 FhirComponent');
-        //   // 2. 手動將這些參數塞進 Angular 的導向中
-        //   // 這會讓網址變成 #/fhir?code=xxx&state=yyy
-        //   const queryParams = {};
-        //   for (let k of urlParams.keys()) {
-        //     queryParams[k] = urlParams.get(k);
-        //   }
-        //   this.router.navigate(['fhir'], {
-        //     queryParams: queryParams,
-        //     replaceUrl: true, // 替換掉目前的歷史紀錄，避免使用者按上一頁回到錯誤狀態
-        //   });
-        // }
-        if (Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["isDevMode"])()) {
-        }
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            console.log('app component 當前原始網址：', window.location.href);
+            const searchParams = new URLSearchParams(window.location.search);
+            const hashPart = window.location.hash.split('?')[1]; // 取得 # 後面的 ? 內容
+            const hashParams = new URLSearchParams(hashPart || '');
+            const urlParams = searchParams;
+            hashParams.forEach((value, key) => { urlParams.append(key, value); });
+            yield this.setURLSearchParams(urlParams);
+            // // 1. 使用原生 JS 抓取 # 號之前的參數 (window.location.search)
+            // const code = urlParams.get('code');
+            // const state = urlParams.get('state');
+            // if (code && state) {
+            //   console.log('偵測到外部回傳參數，準備帶參數跳轉至 FhirComponent');
+            //   // 2. 手動將這些參數塞進 Angular 的導向中
+            //   // 這會讓網址變成 #/fhir?code=xxx&state=yyy
+            //   const queryParams = {};
+            //   for (let k of urlParams.keys()) {
+            //     queryParams[k] = urlParams.get(k);
+            //   }
+            //   this.router.navigate(['fhir'], {
+            //     queryParams: queryParams,
+            //     replaceUrl: true, // 替換掉目前的歷史紀錄，避免使用者按上一頁回到錯誤狀態
+            //   });
+            // }
+            if (Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["isDevMode"])()) {
+            }
+        });
     }
     setURLSearchParams(urlParams) {
-        for (let k of urlParams.keys()) {
-            sessionStorage.setItem(`${k}_self`, urlParams.get(k));
-        }
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            for (let k of urlParams.keys()) {
+                console.log('k', k, urlParams.get(k));
+                yield sessionStorage.setItem(`${k}_self`, urlParams.get(k));
+            }
+        });
     }
     showMsg(event) {
         console.log(event);
     }
 }
-AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"])); };
-AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 2, vars: 0, consts: [[2, "height", "100vh"]], template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "router-outlet");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    } }, directives: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterOutlet"]], styles: ["[_nghost-%COMP%]     .p-component {\n  font-size: 1em;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGNBQUE7QUFDRiIsImZpbGUiOiJhcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCA6Om5nLWRlZXAgLnAtY29tcG9uZW50IHtcbiAgZm9udC1zaXplOiAxZW07XG59XG4iXX0= */"] });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AppComponent, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
+AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"])); };
+AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 2, vars: 0, consts: [[2, "height", "100vh"]], template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "router-outlet");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    } }, directives: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterOutlet"]], styles: ["[_nghost-%COMP%]     .p-component {\n  font-size: 1em;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGNBQUE7QUFDRiIsImZpbGUiOiJhcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCA6Om5nLWRlZXAgLnAtY29tcG9uZW50IHtcbiAgZm9udC1zaXplOiAxZW07XG59XG4iXX0= */"] });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](AppComponent, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"],
         args: [{
                 selector: 'app-root',
                 templateUrl: './app.component.html',
                 styleUrls: ['./app.component.scss'],
             }]
-    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }]; }, null); })();
-
-
-/***/ }),
-
-/***/ "Y17w":
-/*!*************************************!*\
-  !*** ./src/app/fhir/fhir.module.ts ***!
-  \*************************************/
-/*! exports provided: FhirModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FhirModule", function() { return FhirModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "ofXK");
-/* harmony import */ var _fhir_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fhir.component */ "h+pX");
-/* harmony import */ var _launch_launch_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./launch/launch.component */ "Pef/");
-
-
-
-
-
-class FhirModule {
-}
-FhirModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: FhirModule });
-FhirModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function FhirModule_Factory(t) { return new (t || FhirModule)(); }, imports: [[
-            _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]
-        ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](FhirModule, { declarations: [_fhir_component__WEBPACK_IMPORTED_MODULE_2__["FhirComponent"], _launch_launch_component__WEBPACK_IMPORTED_MODULE_3__["LaunchComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]], exports: [_fhir_component__WEBPACK_IMPORTED_MODULE_2__["FhirComponent"]] }); })();
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FhirModule, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
-        args: [{
-                declarations: [_fhir_component__WEBPACK_IMPORTED_MODULE_2__["FhirComponent"], _launch_launch_component__WEBPACK_IMPORTED_MODULE_3__["LaunchComponent"]],
-                imports: [
-                    _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]
-                ],
-                exports: [_fhir_component__WEBPACK_IMPORTED_MODULE_2__["FhirComponent"]]
-            }]
-    }], null, null); })();
+    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }]; }, null); })();
 
 
 /***/ }),
@@ -225,7 +275,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app-routing.module */ "vY5A");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "Sy1n");
-/* harmony import */ var _fhir_fhir_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./fhir/fhir.module */ "Y17w");
+/* harmony import */ var _questionnaire_center_questionnaire_center_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./questionnaire-center/questionnaire-center.module */ "L/fE");
+/* harmony import */ var _smart_auth_smart_auth_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./smart-auth/smart-auth.module */ "JUOo");
+
 
 
 
@@ -240,15 +292,17 @@ AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineNgModule
 AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjector"]({ factory: function AppModule_Factory(t) { return new (t || AppModule)(); }, providers: [], imports: [[
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
             _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
-            _fhir_fhir_module__WEBPACK_IMPORTED_MODULE_6__["FhirModule"],
             _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_1__["BrowserAnimationsModule"],
-            _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"]
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
+            _questionnaire_center_questionnaire_center_module__WEBPACK_IMPORTED_MODULE_6__["QuestionnaireCenterModule"],
+            _smart_auth_smart_auth_module__WEBPACK_IMPORTED_MODULE_7__["SmartAuthModule"],
         ]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
         _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
-        _fhir_fhir_module__WEBPACK_IMPORTED_MODULE_6__["FhirModule"],
         _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_1__["BrowserAnimationsModule"],
-        _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"]] }); })();
+        _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
+        _questionnaire_center_questionnaire_center_module__WEBPACK_IMPORTED_MODULE_6__["QuestionnaireCenterModule"],
+        _smart_auth_smart_auth_module__WEBPACK_IMPORTED_MODULE_7__["SmartAuthModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵsetClassMetadata"](AppModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"],
         args: [{
@@ -256,9 +310,10 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjector
                 imports: [
                     _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                     _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
-                    _fhir_fhir_module__WEBPACK_IMPORTED_MODULE_6__["FhirModule"],
                     _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_1__["BrowserAnimationsModule"],
-                    _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"]
+                    _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
+                    _questionnaire_center_questionnaire_center_module__WEBPACK_IMPORTED_MODULE_6__["QuestionnaireCenterModule"],
+                    _smart_auth_smart_auth_module__WEBPACK_IMPORTED_MODULE_7__["SmartAuthModule"],
                 ],
                 providers: [],
                 bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]],
@@ -268,101 +323,175 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjector
 
 /***/ }),
 
-/***/ "h+pX":
-/*!****************************************!*\
-  !*** ./src/app/fhir/fhir.component.ts ***!
-  \****************************************/
-/*! exports provided: FhirComponent */
+/***/ "hAIa":
+/*!***************************************************!*\
+  !*** ./src/app/smart-auth/fhir-client.service.ts ***!
+  \***************************************************/
+/*! exports provided: FhirClientService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FhirComponent", function() { return FhirComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var fhirclient__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fhirclient */ "qdye");
-/* harmony import */ var fhirclient__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fhirclient__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FhirClientService", function() { return FhirClientService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var fhirclient__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! fhirclient */ "qdye");
+/* harmony import */ var fhirclient__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(fhirclient__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
-class FhirComponent {
-    constructor() { }
-    ngOnInit() {
-        console.log('fhir component 當前原始網址：', window.location.href);
-        const ReadyOptions = { code: sessionStorage.getItem('code_self'), stateKey: sessionStorage.getItem('state_self') };
-        fhirclient__WEBPACK_IMPORTED_MODULE_1__["oauth2"].ready(ReadyOptions)
-            .then(client => {
-            // 檢查 sessionStorage 裡面有沒有 fhir-client 存下的資料
-            // console.log('SessionStorage 內容:', JSON.parse(sessionStorage.getItem('fhir-client-state') || '{}'));
-            console.log('client', client);
-            console.log('連線成功！', client.patient.id);
-            // 現在你可以使用 client.request() 來抓取資料了
-            if (!client.patient || !client.patient.id) {
-                this.patient = "錯誤：未選定病人或 Scope 缺少 launch/patient";
-                return;
+
+class FhirClientService {
+    constructor() {
+        this.client = null;
+    }
+    // 封裝 FHIR.oauth2.ready 邏輯
+    initializeClient() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (this.client)
+                return this.client; // 如果已經有了，直接回傳
+            try {
+                const ReadyOptions = { code: sessionStorage.getItem('code_self'), stateKey: sessionStorage.getItem('state_self') };
+                this.client = yield fhirclient__WEBPACK_IMPORTED_MODULE_2__["oauth2"].ready(ReadyOptions);
+                return this.client;
             }
-            const patientId = client.patient.id;
-            console.log('病人 ID:', patientId);
-            client.patient.read().then((pt) => {
-                // 找病人然後要顯示吧
-                console.log('pt', pt);
-                // 在拿到資料後執行：
-                this.patient = JSON.stringify(pt, null, 4);
-                // this.cdr.detectChanges(); // 強制 Angular 更新畫面
-            }, (error) => {
-                this.patient = error.stack;
-            });
-            client.request("MedicationRequest?patient=" + client.patient.id, {
-                resolveReferences: ["medicationReference"],
-                graph: true
-            })
-                .then((data) => {
-                if (!data.entry || !data.entry.length) {
-                    throw new Error("No medications found for the selected patient");
-                }
-                return data.entry;
-            })
-                .then((meds) => {
-                // 顯示吧不知道
-                this.meds = JSON.stringify(meds, null, 4);
-            }),
-                (error) => {
-                    this.meds = error.stack;
-                };
-        })
-            .catch(console.error);
+            catch (error) {
+                console.error('FHIR Client 初始化失敗', error);
+                throw error;
+            }
+        });
+    }
+    // 供其他頁面取得已建立的 client
+    getClient() {
+        if (!this.client) {
+            throw new Error('Client 尚未初始化，請先呼叫 initializeClient');
+        }
+        return this.client;
+    }
+    // 包裝常用的 request 方法，減少重複程式碼
+    request(url, options) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const client = this.getClient();
+            return yield client.request(url, options);
+        });
     }
 }
-FhirComponent.ɵfac = function FhirComponent_Factory(t) { return new (t || FhirComponent)(); };
-FhirComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: FhirComponent, selectors: [["app-fhir"]], decls: 10, vars: 2, template: function FhirComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "fhir works!");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h4");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "\u73FE\u5728\u75C5\u4EBA");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "h4");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7, "\u85E5\u7269");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "div");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.patient);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.meds);
-    } }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJmaGlyLmNvbXBvbmVudC5zY3NzIn0= */"] });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FhirComponent, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
+FhirClientService.ɵfac = function FhirClientService_Factory(t) { return new (t || FhirClientService)(); };
+FhirClientService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: FhirClientService, factory: FhirClientService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](FhirClientService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"],
         args: [{
-                selector: 'app-fhir',
-                templateUrl: './fhir.component.html',
-                styleUrls: ['./fhir.component.scss']
+                providedIn: 'root'
             }]
     }], function () { return []; }, null); })();
+
+
+/***/ }),
+
+/***/ "vOHG":
+/*!************************************************************************!*\
+  !*** ./src/app/questionnaire-center/questionnaire-center.component.ts ***!
+  \************************************************************************/
+/*! exports provided: QuestionnaireCenterComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuestionnaireCenterComponent", function() { return QuestionnaireCenterComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _smart_auth_fhir_client_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../smart-auth/fhir-client.service */ "hAIa");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "ofXK");
+
+
+
+
+function QuestionnaireCenterComponent_ng_container_15_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "tbody");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "tr");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "td");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "td");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "td");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "td");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
+} if (rf & 2) {
+    const question_r1 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](question_r1.title);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](question_r1.description);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](question_r1.publisher);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](question_r1.date);
+} }
+class QuestionnaireCenterComponent {
+    constructor(fhirSvc) {
+        this.fhirSvc = fhirSvc;
+        this.questionnaireList = [];
+    }
+    ngOnInit() {
+        console.log('questionnaire component 當前原始網址：', window.location.href);
+        this.fhirSvc.initializeClient()
+            .then((client) => {
+            client.request('Questionnaire')
+                .then((bundle) => {
+                this.questionnaireList = bundle.entry.map(x => x.resource);
+                console.log('questionList', this.questionnaireList);
+                console.log('questionList string', JSON.stringify(this.questionnaireList));
+            });
+        });
+    }
+}
+QuestionnaireCenterComponent.ɵfac = function QuestionnaireCenterComponent_Factory(t) { return new (t || QuestionnaireCenterComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_smart_auth_fhir_client_service__WEBPACK_IMPORTED_MODULE_1__["FhirClientService"])); };
+QuestionnaireCenterComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: QuestionnaireCenterComponent, selectors: [["app-questionnaire-center"]], decls: 16, vars: 1, consts: [[4, "ngFor", "ngForOf"]], template: function QuestionnaireCenterComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "questionnaire-center works!");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h4");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "\u6E05\u55AE\uFF1A");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "table");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "thead");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "tr");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "th");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "\u6A19\u984C");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "th");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10, "\u8AAA\u660E");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "th");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](12, "\u4F5C\u8005");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](13, "th");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](14, "\u5EFA\u7ACB\u65E5\u671F");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](15, QuestionnaireCenterComponent_ng_container_15_Template, 11, 4, "ng-container", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    } if (rf & 2) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.questionnaireList);
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["NgForOf"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJxdWVzdGlvbm5haXJlLWNlbnRlci5jb21wb25lbnQuc2NzcyJ9 */"] });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](QuestionnaireCenterComponent, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
+        args: [{
+                selector: 'app-questionnaire-center',
+                templateUrl: './questionnaire-center.component.html',
+                styleUrls: ['./questionnaire-center.component.scss']
+            }]
+    }], function () { return [{ type: _smart_auth_fhir_client_service__WEBPACK_IMPORTED_MODULE_1__["FhirClientService"] }]; }, null); })();
 
 
 /***/ }),
@@ -377,10 +506,10 @@ FhirComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComp
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRoutingModule", function() { return AppRoutingModule; });
-/* harmony import */ var _fhir_fhir_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fhir/fhir.component */ "h+pX");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _fhir_launch_launch_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fhir/launch/launch.component */ "Pef/");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _smart_auth_launch_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./smart-auth/launch.component */ "SsXV");
+/* harmony import */ var _questionnaire_center_questionnaire_center_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./questionnaire-center/questionnaire-center.component */ "vOHG");
 
 
 
@@ -391,32 +520,32 @@ const routes = [
     // { path: 'index', component: AppComponent },      // 處理回調 (或你的主畫面)
     // { path: '', redirectTo: 'index', pathMatch: 'full' }
     // { path: '', redirectTo: 'launch', pathMatch: 'full' },
-    { path: '', component: _fhir_launch_launch_component__WEBPACK_IMPORTED_MODULE_3__["LaunchComponent"] },
+    { path: '', component: _smart_auth_launch_component__WEBPACK_IMPORTED_MODULE_2__["LaunchComponent"] },
     {
-        path: 'fhir',
-        component: _fhir_fhir_component__WEBPACK_IMPORTED_MODULE_0__["FhirComponent"],
+        path: 'questionnaire-center',
+        component: _questionnaire_center_questionnaire_center_component__WEBPACK_IMPORTED_MODULE_3__["QuestionnaireCenterComponent"],
     },
 ];
 class AppRoutingModule {
 }
-AppRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
-AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({ factory: function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); }, imports: [[
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes, {
+AppRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
+AppRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); }, imports: [[
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, {
                 useHash: true,
                 onSameUrlNavigation: 'reload'
             })
-        ], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]] }); })();
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](AppRoutingModule, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
+        ], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] }); })();
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AppRoutingModule, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
                 imports: [
-                    _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes, {
+                    _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, {
                         useHash: true,
                         onSameUrlNavigation: 'reload'
                     })
                 ],
-                exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]],
+                exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]],
             }]
     }], null, null); })();
 
