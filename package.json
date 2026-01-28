@@ -15,7 +15,8 @@
     "@formio/angular": "~5.2.0",
     "fhirclient": "^2.6.3",
     "formiojs": "4.14.14",
-    "ng-qrcode": "^4.2.0"
+    "ng-qrcode": "^4.2.0",
+    "moment": "~2.29.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1100.5",
