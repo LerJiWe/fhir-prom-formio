@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { FhirClientService } from '../smart-auth/fhir-client.service';
 import { QuestionnaireToIr } from '../structure-ir/questionnaire-to-ir';
@@ -32,7 +33,7 @@ export class QuestionnaireCenterComponent implements OnInit {
   // 操控formIo refresh
   public triggerRefresh;
 
-  constructor(private fhirSvc: FhirClientService) { }
+  constructor(private fhirSvc: FhirClientService, private router: Router) { }
 
   ngOnInit(): void {
     console.log('questionnaire component 當前原始網址：', window.location.href);
@@ -90,6 +91,9 @@ export class QuestionnaireCenterComponent implements OnInit {
   }
 
   async selectQuestionnaire(id) {
+
+    // this.router.navigate(['questionnaire-response']);
+
     console.log('選到的是', id);
     let url = `Questionnaire/${id}`;
     const bundle = await this.fhirSvc.request(url);

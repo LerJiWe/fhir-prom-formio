@@ -1,0 +1,35 @@
+/*tabview*/
+.tab-container {
+  width: 100%;
+  margin: 0 auto;
+}
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #e0e0e0;
+  background-color: #f8f9fa;
+}
+.tab-btn {
+  padding: 12px 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  color: #666;
+  transition: all 0.3s;
+}
+.tab-btn:hover {
+  background-color: #eee;
+}
+.tab-btn.active {
+  color: #007bff;
+  border-bottom: 3px solid #007bff;
+  margin-bottom: -2px; /* 覆蓋底部邊框 */
+}
+.tab-content {
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  background-color: #fff;
+  min-height: 400px;
+}

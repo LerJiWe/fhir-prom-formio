@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LaunchComponent } from './smart-auth/launch.component';
 import { QuestionnaireCenterComponent } from './questionnaire-center/questionnaire-center.component';
+import { QuestionnaireResponseComponent } from './questionnaire-response/questionnaire-response.component';
 
 const routes: Routes = [
   // { path: 'index', component: AppComponent },      // 處理回調 (或你的主畫面)
@@ -13,6 +14,10 @@ const routes: Routes = [
     path: 'questionnaire-center',
     component: QuestionnaireCenterComponent,
   },
+  {
+    path: 'questionnaire-response',
+    component: QuestionnaireResponseComponent
+  }
 ];
 
 @NgModule({

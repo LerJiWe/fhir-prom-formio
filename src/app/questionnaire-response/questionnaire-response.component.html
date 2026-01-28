@@ -1,0 +1,41 @@
+<div class="tab-container">
+  <div class="tabs">
+    <button class="tab-btn" [class.active]="activeTab === 'search'" (click)="activeTab = 'search'">
+      問卷查詢清單
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'render'" (click)="activeTab = 'render'">
+      表單渲染
+    </button>
+  </div>
+  <div class="tab-content">
+    <div *ngIf="activeTab === 'search'">
+      <div class="q-container">
+        <div class="search-toolbar"></div>
+        <table class="q-table">
+          <thead>
+            <tr>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <button></button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="activeTab === 'render'">
+      <div class="placeholder-box">
+        <h3>Form.io 渲染區域</h3>
+        <p>當 IR 轉換完成後，表單將在此顯示。</p>
+        <div *ngIf="tmpl">
+          <formio [form]="tmpl" [refresh]="triggerRefresh"></formio>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
