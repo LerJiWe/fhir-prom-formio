@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 
 import { QuestionnaireCenterModule } from './questionnaire-center/questionnaire-center.module';
 import { SmartAuthModule } from './smart-auth/smart-auth.module';
+import { QuestionnaireResponseModule } from './questionnaire-response/questionnaire-response.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -18,6 +19,7 @@ import { SmartAuthModule } from './smart-auth/smart-auth.module';
 
     QuestionnaireCenterModule,
     SmartAuthModule,
+    QuestionnaireResponseModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -44,6 +44,7 @@ export class QuestionnaireCenterComponent implements OnInit {
             this.questionnaireList = bundle.entry.map(x => x.resource);
             console.log('questionList', this.questionnaireList);
             console.log('questionList string', JSON.stringify(this.questionnaireList));
+            this.processBundle(bundle, false); // false 代表這是新搜尋，要清空舊列表
           });
       });
   }

@@ -1,30 +1,61 @@
 <div class="tab-container">
   <div class="tabs">
     <button class="tab-btn" [class.active]="activeTab === 'search'" (click)="activeTab = 'search'">
-      問卷查詢清單
+      問卷填答清單
     </button>
     <button class="tab-btn" [class.active]="activeTab === 'render'" (click)="activeTab = 'render'">
       表單渲染
     </button>
   </div>
+  <div>
+    <button class="btn-back" (click)="backQuestionnaire()">回到問卷選擇</button>
+  </div>
   <div class="tab-content">
     <div *ngIf="activeTab === 'search'">
-      <div class="q-container">
-        <div class="search-toolbar"></div>
-        <table class="q-table">
+      <div class="container">
+        <div class="search-toolbar">
+          <div class="filter-group">
+            <label>填寫狀態：</label>
+            <select [(ngModel)]="qrStatus">
+              <option value="completed">已完成</option>
+              <option value="in-progress">暫存中</option>
+              <option value="all">全部</option>
+            </select>
+            <div class="date-group">
+              <label>日期：</label>
+              <input type="date" [(ngModel)]="qrDateStart" class="input-date">
+              <span>至</span>
+              <input type="date" [(ngModel)]="qrDateEnd" class="input-date">
+            </div>
+            <button class="btn-search" (click)="onSearchQR()">查詢紀錄</button>
+          </div>
+          <button class="btn-add" (click)="goToCreateNew()">＋ 新增填答</button>
+        </div>
+        <table class="table">
           <thead>
             <tr>
-              <th></th>
+              <th>填寫時間</th>
+              <th>狀態</th>
+              <th>填寫人</th>
+              <th>操作</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor>
-              <td></td>
+            <tr *ngFor="let qr of qrList">
+              <td>{{ qr.authored | date:'yyyy-MM-dd HH:mm' }}</td>
+              <td><span [class]="'status-' + qr.status">{{ qr.status }}</span></td>
+              <td>{{ qr.author?.display || '系統紀錄' }}</td>
+              <td>
+                <button class="btn-edit" (click)="goToEdit(qr.id)">查看/續填</button>
+              </td>
+            </tr>
+            <tr *ngIf="qrList.length === 0">
+              <td colspan="4" class="no-data">尚無填答紀錄</td>
             </tr>
           </tbody>
         </table>
-        <div>
-          <button></button>
+        <div class="pagination-footer" *ngIf="nextUrl">
+          <button (click)="loadNextPage()" class="btn-next">載入更多問卷 (下一頁)</button>
         </div>
       </div>
     </div>
